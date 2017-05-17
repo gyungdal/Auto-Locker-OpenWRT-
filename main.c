@@ -1,0 +1,50 @@
+#include "list.c"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+typedef struct {
+	char* ip;
+	char* mac;
+} IPInfo;
+
+typedef struct {
+	IPInfo conInfo;
+	int strength;
+	char* name;
+} Info;
+
+IPInfo readIPMac(char* str){
+	char* ip = (char*)malloc(sizeof(char) * 20);
+	char* mac = (char*)malloc(sizeof(char) * 20);
+	sscanf(str, "%*s %s %s %*s %*s", mac, ip);
+	IPInfo info;
+	info.ip = ip;
+	info.mac = mac;
+	return info;
+}
+
+int getStrength(char* mac, char* str){
+	if(strncasecmp(mac, str, strlen(mac) -1) == 0){
+		int power;
+		char* name = (char*)malloc(sizeof(char) * 1024);
+		sscanf(str, "%*s %d %*s %*s %s %*s", &power, name);
+		printf("NAME : %s\n", name);
+		return power;
+	}
+	return 0;
+}
+
+void main() {
+	char* test = "1495033096 36:68:89:59:07:a5 192.168.1.224 * 01:36:68:89:59:07:a5";
+	IPInfo ipInfo = readIPMac(test);
+	printf("IP : %s\n", ipInfo.ip);
+	printf("MAC : %s\n", ipInfo.mac);
+	Info info;
+	info.conInfo = ipInfo;
+	char* test2 = "36:68:89:59:07:A5  -39 dBm / unknown (SNR -39)  30 ms ago";
+	info.strength = getStrength(info.conInfo.mac, test2);
+	printf("strength : %d", info.strength);
+	free(info.conInfo.ip);
+	free(info.conInfo.mac);
+}
