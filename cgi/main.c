@@ -9,9 +9,14 @@ typedef struct {
 } IPInfo;
 
 typedef struct {
-	IPInfo conInfo;
+	char* mac;
 	int strength;
 	char* name;
+} MacInfo;
+
+typedef struct {
+	IPInfo ipInfo;
+	MacInfo rssiInfo;
 } Info;
 
 IPInfo readIPMac(char* str){
@@ -41,10 +46,10 @@ void main() {
 	printf("IP : %s\n", ipInfo.ip);
 	printf("MAC : %s\n", ipInfo.mac);
 	Info info;
-	info.conInfo = ipInfo;
+	info.ipInfo = ipInfo;
 	char* test2 = "36:68:89:59:07:A5  -39 dBm / unknown (SNR -39)  30 ms ago";
-	info.strength = getStrength(info.conInfo.mac, test2);
-	printf("strength : %d", info.strength);
-	free(info.conInfo.ip);
-	free(info.conInfo.mac);
+	info.rssiInfo.strength = getStrength(info.ipInfo.mac, test2);
+	printf("strength : %d", info.rssiInfo.strength);
+	free(info.ipInfo.ip);
+	free(info.ipInfo.mac);
 }
