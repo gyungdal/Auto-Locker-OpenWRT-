@@ -1,0 +1,8 @@
+Package: zio_garp
+Version: 1
+Depends: libc
+Source: package/network/utils/zio_garp
+Section: net
+Architecture: ramips
+Installed-Size: 2259
+Description:  Wan Interface gARP Request Program
