@@ -13,7 +13,7 @@ end
 
 function table.findByMac(t, mac)
   for k, v in pairs(t, mac) do
-    if v["MAC"] == mac 
+    if v["MAC"] == mac then
       return v
     end
   end
@@ -60,9 +60,11 @@ function test3read()
   local command = "cat D:\\Tool\\LUA\\myprograms\\OpenWRT\\test3"
   local handle = io.popen(command)
   for line in handle:lines() do 
-    local one = split(line, " ")[1]
-    local two = split(line, " ")[2]
+    local name = split(line, " ")[1]
+    local one = split(line, " ")[2]
+    local two = split(line, " ")[3]
     local temp = {}
+    temp["NAME"] = name
     temp["ONE"] = one
     temp["TWO"] = two
     result[#result + 1] = temp
@@ -89,18 +91,17 @@ function infoResult(ips, macs)
 end
 
 totalInfo = infoResult(testread(), test2read())
-for q, v in pairs(totalInfo) do 
-  for q2, v2 in pairs(test3read()) do
-    local one = table.findByMac(totalInfo, v2["ONE"])
-    local two = table.findByMac(totalInfo, v2["TWO"]) 
-    local dif = one["POWER"] - two["POWER"]
-    if dif < 5 or dif > -5
-      -- 소캣 전송!
-    end
+for q2, v2 in pairs(test3read()) do
+  local one = table.findByMac(totalInfo, v2["ONE"])
+  local two = table.findByMac(totalInfo, v2["TWO"]) 
+  local dif = one["POWER"] - two["POWER"]
+  if dif < 5 and dif > -5 then
+    local socket = require("socket")
+    -- client = socket.connect("google.com", 80)
+    -- client:send("OPEN!")
+    -- client:flush()
+    -- client:close()
+    print("CATCH")
   end
-  print("IP : ", v["IP"])
-  print("MAC : ", v["MAC"])
-  print("NAME : ", v["NAME"])
-  print("POWER : ", v["POWER"])
 end
 

@@ -23,6 +23,9 @@ void main(int argc, char *argv[]){
 	printf("Content-type : text/plain\n\n");
 	//printf("The GET data is :\n\n");
 	requestType = getenv("REQUEST_METHOD");
+	char *in = (char*)malloc(sizeof(char) * 10);
+	char *out = (char*)malloc(sizeof(char) * 10);
+	char *port = (char*)malloc(sizeof(char) * 100);
 	if(requestType && !strcmp(requestType, "GET")){
 		readGetData(&data);
 		//printf("The GET data is:\n\n");
@@ -36,10 +39,12 @@ void main(int argc, char *argv[]){
 		while(temp != NULL){
 			switch(i++){
 				case 1:
+					memcpy(in, temp, sizeof(char) * 1024);
 					sprintf(command, "ifconfig eth0 %s netmask ", temp);
 					//printf(command);
 					break;
 				case 3:{
+					memcpy(ip, temp, sizeof(char) * 1024);
 					FILE* fp = fopen("/www/ip.sh", "a");
 					char* t = (char*)malloc(sizeof(char) * 1024);
 					sprintf(t, "%s%s\n", command, temp);
@@ -52,6 +57,7 @@ void main(int argc, char *argv[]){
 					fclose(fp);
 					break;
 				}case 5:{
+					memcpy(port, temp, sizeof(char) * 1024);
 					FILE* fp = fopen("/www/ip.sh", "a");
 					memset(command, ' ', sizeof(char) * 1024);
 					sprintf(command, "route add default gw %s eth0\n", temp);
@@ -66,6 +72,8 @@ void main(int argc, char *argv[]){
                 	//printf("%s\n", temp);
                		temp = strtok(NULL, "=&");
         	}
+		FILE* fp = fopen("/www/forwarding.sh", "a");
+		
 		free(command);
 	}
 	exit(0);
