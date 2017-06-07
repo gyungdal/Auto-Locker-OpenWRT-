@@ -1,0 +1,6 @@
+D:\Develop\Project\공유기\Window\autoLocker\autoLocker\obj\Debug\autoLocker.csprojResolveAssemblyReference.cache
+D:\Develop\Project\공유기\Window\autoLocker\autoLocker\bin\Debug\autoLocker.exe.config
+D:\Develop\Project\공유기\Window\autoLocker\autoLocker\bin\Debug\autoLocker.exe
+D:\Develop\Project\공유기\Window\autoLocker\autoLocker\bin\Debug\autoLocker.pdb
+D:\Develop\Project\공유기\Window\autoLocker\autoLocker\obj\Debug\autoLocker.exe
+D:\Develop\Project\공유기\Window\autoLocker\autoLocker\obj\Debug\autoLocker.pdb

@@ -13,7 +13,7 @@ end
 
 function table.findByMac(t, mac)
   for k, v in pairs(t, mac) do
-    if v["MAC"] == mac then
+    if string.upper(v["MAC"]) == string.upper(mac) then
       return v
     end
   end
@@ -101,7 +101,7 @@ for q2, v2 in pairs(test3read()) do
     -- client:send("OPEN!")
     -- client:flush()
     -- client:close()
-    print("CATCH")
+    -- print("CATCH")
   end
 end
 

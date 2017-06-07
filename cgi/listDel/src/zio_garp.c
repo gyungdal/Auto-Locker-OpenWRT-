@@ -2,70 +2,31 @@
 #include<stdio.h>
 #include<string.h>
 
-void readGetData(char **aString){
-	char *queryString;
-	int len=0;
-	queryString=getenv("QUERY_STRING");
-	if(queryString){
-		len = strlen(queryString);
-		*aString=malloc(sizeof(char) *len);
-		strcpy(*aString, queryString);
-	}else{
-		len=1;
-		*aString = malloc(sizeof(char) *len);
-		**aString = '\0';
-	}
-}
-
 void main(int argc, char *argv[]){
-	char *requestType;
-	char *data = (char *) 0;
-	printf("Content-type : text/plain\n\n");
-	//printf("The GET data is :\n\n");
-	requestType = getenv("REQUEST_METHOD");
-	char *numText = (char*)malloc(sizeof(char) * 100);
-	long num = -1;
-	if(requestType && !strcmp(requestType, "GET")){
-		readGetData(&data);			
-		//printf("The GET data is:\n\n");
-	}if(data != (char *) 0){ 
-		//printf("%s\n",data);
-        	char* temp;
+	printf("Content-type : text/html\n\n");
+	FILE* fp;
+	printf("<HTML><head><style>table, th, td {    border: 1px solid black;    border-collapse: collapse;}th, td {    padding: 5px;    text-align: left;    }</style></head><body><table>  <tr>	<th>INDEX</td>    <th>Name</td>    <th>Device IP[1]</td>     <th>Device IP[2]</td>    <th>Delete</td>  </tr>");
+	if (fp = fopen("/www/DeviceList", "r")){
+		char* str = (char*)malloc(sizeof(char) * 1024);
+		char* name = (char*)malloc(sizeof(char) * 984);
+		char* one = (char*)malloc(sizeof(char) * 20);
+		char* two = (char*)malloc(sizeof(char) * 20);
 		int i = 0;
-		temp = strtok(data, "=&");
-		char* command = (char*)malloc(sizeof(char) * 1024);
-		memset(command, ' ', sizeof(char) * 1024);
-		while(temp != NULL){
-			switch(i++){
-				case 1:
-					memcpy(numText, temp, sizeof(char) * 100);
-					num = atol(numText);
-					free(numText);
-					break;
-				default: break;
-			}
-			//printf("%s\n", temp);
-			temp = strtok(NULL, "=&");
+		while(fgets(str, 1024, fp)){
+			sscanf(str, "%s %s %s", name, one, two);
+			printf("<tr><td>%d</td>", i);
+			printf("<td>%s</td>", name);
+			printf("<td>%s</td>", one);
+			printf("<td>%s</td>", two);
+			printf("<td><button onclick=\"window.location.href='./lockerListDel?in=%d'\">del</button></td></tr>", i++);
 		}
-		system("rm -rf /www/DeviceList.345678temp");
-		FILE* fp = fopen("/www/DeviceList", "r");
-		FILE* ftp = fopen("/www/DeviceList.345678temp", "w");
-		int numTemp = 0;
-		if(num != -1){
-			char* temp = (char*)malloc(sizeof(char) * 1024);
-			while(fgets(temp, 1024, fp)){
-				if(numTemp != num){
-						fputs(temp, ftp);
-				}
-				numTemp += 1;
-			}
-			free(temp);
-			fclose(fp);
-			fclose(ftp);
-			system("rm -rf /www/DeviceList");
-			system("mv /www/DeviceList.345678temp /www/DeviceList");
-			system("rm -rf /www/DeviceList.345678temp");
-		}
+		fclose(fp);
+		free(str);
+		free(name);
+		free(one);
+		free(two);
 	}
+	printf("</table><form action=\"./lockerListAdd\">  <fieldset>    <legend>Append Device</legend>    name:<br>    <input type=\"text\" placeholder=\"name\" required name=\"name\">    <br>    Device IP[1]:<br>    <input type=\"text\" placeholder=\"xxx.xxx.xxx.xxx\" required name=\"ip1\">    <br>    Device IP[2]:<br>    <input type=\"text\" placeholder=\"xxx.xxx.xxx.xxx\" required name=\"ip2\">	<br>    <input type=\"submit\" value=\"Submit\">  </fieldset></form></body></HTML>");
 	exit(0);
 }
+

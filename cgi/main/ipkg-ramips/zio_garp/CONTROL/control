@@ -4,5 +4,5 @@ Depends: libc
 Source: package/network/utils/zio_garp
 Section: net
 Architecture: ramips
-Installed-Size: 2259
+Installed-Size: 2497
 Description:  Wan Interface gARP Request Program
