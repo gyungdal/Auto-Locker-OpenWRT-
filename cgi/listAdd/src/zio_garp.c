@@ -59,5 +59,6 @@ void main(int argc, char *argv[]){
 		free(mac1);
 		free(mac2);
 	}
+	printf("OK!\n");
 	exit(0);
 }
