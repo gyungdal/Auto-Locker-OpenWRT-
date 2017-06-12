@@ -1,4 +1,7 @@
 -- 백그라운드에서 작동할 서비스
+--  crontab -e
+-- 1분마다 실행
+--  */1 * * * * nohup /sbin/lua /root/background.lua &
 function split(inputstr, sep)
   if sep == nil then
           sep = "%s"
