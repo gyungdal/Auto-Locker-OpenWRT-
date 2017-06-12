@@ -1,8 +1,0 @@
-D:\Develop\Project\공유기\Window\autoLocker FOrm\autoLocker FOrm\bin\Debug\autoLocker FOrm.exe.config
-D:\Develop\Project\공유기\Window\autoLocker FOrm\autoLocker FOrm\bin\Debug\autoLocker FOrm.exe
-D:\Develop\Project\공유기\Window\autoLocker FOrm\autoLocker FOrm\bin\Debug\autoLocker FOrm.pdb
-D:\Develop\Project\공유기\Window\autoLocker FOrm\autoLocker FOrm\obj\Debug\autoLocker FOrm.csprojResolveAssemblyReference.cache
-D:\Develop\Project\공유기\Window\autoLocker FOrm\autoLocker FOrm\obj\Debug\autoLocker_FOrm.Properties.Resources.resources
-D:\Develop\Project\공유기\Window\autoLocker FOrm\autoLocker FOrm\obj\Debug\autoLocker FOrm.csproj.GenerateResource.Cache
-D:\Develop\Project\공유기\Window\autoLocker FOrm\autoLocker FOrm\obj\Debug\autoLocker FOrm.exe
-D:\Develop\Project\공유기\Window\autoLocker FOrm\autoLocker FOrm\obj\Debug\autoLocker FOrm.pdb

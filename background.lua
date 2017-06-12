@@ -97,11 +97,26 @@ for q2, v2 in pairs(test3read()) do
   local dif = one["POWER"] - two["POWER"]
   if dif < 5 and dif > -5 then
     local socket = require("socket")
-    -- client = socket.connect("google.com", 80)
-    -- client:send("OPEN!")
-    -- client:flush()
-    -- client:close()
-    -- print("CATCH")
+    client = socket.connect(one["IP"], 9123)
+    client:send("UNLOCK")
+    client:flush()
+    client:close()
+    socket = require("socket")
+    client = socket.connect(two["IP"], 9123)
+    client:send("UNLOCK")
+    client:flush()
+    client:close()
+  else
+    local socket = require("socket")
+     client = socket.connect(one["IP"], 9123)
+     client:send("LOCK")
+     client:flush()
+     client:close()
+    socket = require("socket")
+     client = socket.connect(two["IP"], 9123)
+     client:send("LOCK")
+     client:flush()
+     client:close()
   end
 end
 
